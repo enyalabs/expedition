@@ -212,7 +212,7 @@ function App(props: any) {
                     (event: ChangeEvent<HTMLInputElement>) => {
                       if (event.target.value) {
                         const {value} = event.target;
-                        setSearch(value as any);
+                        setSearch(value.toLowerCase() as any);
                       }
                     }
                   }
