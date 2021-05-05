@@ -1,8 +1,7 @@
 import { AppBar, CssBaseline, Toolbar, IconButton, Grid, InputBase, Tooltip } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
-import Link from "@material-ui/core/Link";
 import React, { Dispatch, ChangeEvent, KeyboardEvent, useState, useEffect } from "react";
-import { Link as RouterLink, Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import useDarkMode from "use-dark-mode";
 import "./App.css";
 import Address from "./containers/Address";
@@ -180,23 +179,13 @@ function App(props: any) {
           <Toolbar>
             <Grid justify="space-between" alignItems="center" alignContent="center" container>
               <Grid item style={{ marginTop: "8px" }}>
-                <Link
-                  component={({ className, children }: { children: any, className: string }) => (
-                    <RouterLink className={className} to={"/"}>
-                      {children}
-                    </RouterLink>
-                  )}>
-                  <Grid container>
-                    <Grid>
-                      <img
-                        alt="omgx-logo"
-                        height="30"
-                        style={{ marginRight: "10px" }}
-                        src={omgxLogo}
-                      />
-                    </Grid>
-                  </Grid>
-                </Link>
+                <img
+                  alt="omgx-logo"
+                  height="30"
+                  style={{ marginRight: "10px", cursor: 'pointer' }}
+                  src={omgxLogo}
+                  onClick={()=>history.push('/')}
+                />
               </Grid>
               <Grid item md={6} xs={12}>
                 <InputBase
