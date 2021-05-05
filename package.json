@@ -16,7 +16,8 @@
     "start": "react-scripts start",
     "test": "react-scripts test",
     "lint": "tslint -p tsconfig.json",
-    "version": "cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]'"
+    "version": "cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]'",
+    "deploy": "aws s3 rm s3://omgx-blockexplorer --recursive && aws s3 sync build s3://omgx-blockexplorer && aws s3 cp s3://omgx-blockexplorer/index.html s3://omgx-blockexplorer/index.html --metadata-directive REPLACE --cache-control max-age=0"
   },
   "dependencies": {
     "@etclabscore/eserialize": "^1.0.2",
