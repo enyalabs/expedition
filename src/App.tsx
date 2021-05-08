@@ -29,6 +29,7 @@ import omgxLogo from "./omgx.png";
 import { IChain as Chain } from "./models/chain";
 import useChainListStore from "./stores/useChainListStore";
 import useEthRPCStore from "./stores/useEthRPCStore";
+import { checkVersion } from "./api/version";
 
 const history = createPreserveQueryHistory(createBrowserHistory, ["network", "rpcUrl"])();
 
@@ -43,6 +44,8 @@ function App(props: any) {
   const [chains, setChains] = useChainListStore<[Chain[], Dispatch<Chain[]>]>();
   const [ethRPC, setEthRPCChain] = useEthRPCStore();
 
+  checkVersion();
+  
   // default the selectedChain once chain list loads
   useEffect(() => {
     if (selectedChain !== undefined) { return; }
