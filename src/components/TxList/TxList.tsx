@@ -65,7 +65,7 @@ function TxList(props: ITxListProps) {
           <TableCell>Hash</TableCell>
           <TableCell>From</TableCell>
           <TableCell>To</TableCell>
-          <TableCell>Index</TableCell>
+          {/* <TableCell>Index</TableCell> */}
         </TableRow>
       </TableHead>
 

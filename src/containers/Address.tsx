@@ -76,7 +76,7 @@ const Address: React.FC<IProps> = ({ match, history }) => {
       setTransactions(transactions);
     })
   // eslint-disable-next-line 
-  }, [fromRange, toRange]);
+  }, [fromRange, toRange, address]);
 
   if (transactionCount === undefined || balance === undefined || code === undefined) {
     return <LoadingView />;
