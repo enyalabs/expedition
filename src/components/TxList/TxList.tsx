@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/c
 import { hexToNumber } from "@etclabscore/eserialize";
 
 function TxListItem({ tx, showblockNumber }: { tx: any, showblockNumber?: boolean }) {
+  
   return (
     <TableRow>
       {showblockNumber && <TableCell>{hexToNumber(tx.blockNumber)}</TableCell>}
@@ -45,7 +46,7 @@ function TxListItem({ tx, showblockNumber }: { tx: any, showblockNumber?: boolea
           : null}
       </TableCell>
 
-      <TableCell>{hexToNumber(tx.transactionIndex)}</TableCell>
+      {/* <TableCell>{hexToNumber(tx.transactionIndex)}</TableCell> */}
     </TableRow>
   );
 }
@@ -64,7 +65,7 @@ function TxList(props: ITxListProps) {
           <TableCell>Hash</TableCell>
           <TableCell>From</TableCell>
           <TableCell>To</TableCell>
-          <TableCell>Index</TableCell>
+          {/* <TableCell>Index</TableCell> */}
         </TableRow>
       </TableHead>
 

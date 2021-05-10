@@ -29,7 +29,7 @@ const AddressTransactions: React.FC<IProps> = (props) => {
         </IconButton>
       </Grid>
       <Grid container justify="flex-end">
-        <Typography>Showing block range: {props.to} - {props.from}</Typography>
+        <Typography>Showing transaction range: {props.from} - {props.to}</Typography>
       </Grid>
       <TxList transactions={props.transactions || []} showBlockNumber={true}></TxList>
       {(!props.transactions || props.transactions.length === 0) &&

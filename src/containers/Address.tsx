@@ -1,13 +1,13 @@
 import * as React from "react";
 import AddressView from "../components/AddressView";
 import LoadingView from "../components/LoadingView/LoadingView";
-import _ from "lodash";
-import getBlocks, { useBlockNumber } from "../helpers";
+import { useBlockNumber } from "../helpers";
 import useEthRPCStore from "../stores/useEthRPCStore";
 import { hexToNumber } from "@etclabscore/eserialize";
 import AddressTransactions from "../components/AddressTransactions";
 import { History } from "history";
 import { Transaction } from "@etclabscore/ethereum-json-rpc";
+import Watcher from "../api/watcher";
 
 const unit = require("ethjs-unit"); //tslint:disable-line
 
@@ -15,6 +15,7 @@ interface IProps {
   match: {
     params: {
       address: string,
+      from: number,
       block: string,
     };
   };
@@ -22,7 +23,7 @@ interface IProps {
 }
 
 const Address: React.FC<IProps> = ({ match, history }) => {
-  const { address, block } = match.params;
+  const { address, from, block } = match.params;
   const [erpc] = useEthRPCStore();
   const [blockNumber] = useBlockNumber(erpc);
   const [transactionCount, setTransactionCount] = React.useState<string>();
@@ -31,8 +32,9 @@ const Address: React.FC<IProps> = ({ match, history }) => {
   const blockNum = block === undefined ? blockNumber : parseInt(block, 10);
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
 
-  const from = Math.max(blockNum ? blockNum : 0 - 99, 0);
-  const to = blockNum;
+  const watcher = new Watcher();
+  const fromRange = from ? from : 0;
+  const toRange = fromRange + 10;
 
   React.useEffect(() => {
     if (isNaN(blockNum) || isNaN(blockNumber)) {
@@ -47,7 +49,7 @@ const Address: React.FC<IProps> = ({ match, history }) => {
   }, [blockNumber, blockNum, history, address]);
 
   React.useEffect(() => {
-    if (blockNumber === undefined || !erpc) {
+    if (blockNumber === undefined || !erpc || isNaN(blockNumber)) {
       return;
     }
     const hexBlockNumber = `0x${blockNumber.toString(16)}`;
@@ -70,26 +72,16 @@ const Address: React.FC<IProps> = ({ match, history }) => {
   }, [blockNumber, address, erpc]);
 
   React.useEffect(() => {
-    if (!erpc) { return; }
-    getBlocks(from, to, erpc).then((blcks) => {
-      const txes = _.flatMap(blcks, "transactions");
-      const filteredTxes = _.filter(txes, (tx: any) => {
-        if (!tx) {
-          return false;
-        }
-        return tx.to === address || tx.from === address;
-      });
-      const sortedTxes = _.sortBy(filteredTxes, (tx: any) => {
-        return hexToNumber(tx.blockNumber);
-      }).reverse();
-      setTransactions(sortedTxes);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [from, to]);
+    watcher.getTransaction(address, fromRange, toRange).then(transactions => {
+      setTransactions(transactions);
+    })
+  // eslint-disable-next-line 
+  }, [fromRange, toRange, address]);
 
   if (transactionCount === undefined || balance === undefined || code === undefined) {
     return <LoadingView />;
   }
+
   return (
     <>
       <AddressView
@@ -99,17 +91,17 @@ const Address: React.FC<IProps> = ({ match, history }) => {
         code={code}
       />
       <AddressTransactions
-        from={from}
-        to={to}
+        from={fromRange}
+        to={toRange}
         transactions={transactions}
-        disablePrev={blockNum >= blockNumber}
-        disableNext={blockNum === 0}
+        disablePrev={fromRange === 0}
+        disableNext={transactions.length < 10}
         onPrev={() => {
-          const newQuery = blockNum + 100;
+          const newQuery = Math.max(fromRange - 10, 0);
           history.push(`/address/${address}/${newQuery}`);
         }}
         onNext={() => {
-          const newQuery = Math.max(blockNum - 100, 0);
+          const newQuery = fromRange + 10;
           history.push(`/address/${address}/${newQuery}`);
         }}
       />
