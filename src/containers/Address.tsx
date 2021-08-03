@@ -7,7 +7,7 @@ import { hexToNumber } from "@etclabscore/eserialize";
 import AddressTransactions from "../components/AddressTransactions";
 import { History } from "history";
 import { Transaction } from "@etclabscore/ethereum-json-rpc";
-import Watcher from "../api/watcher";
+import APIWatcher from "../api/watcher";
 
 const unit = require("ethjs-unit"); //tslint:disable-line
 
@@ -32,7 +32,7 @@ const Address: React.FC<IProps> = ({ match, history }) => {
   const blockNum = block === undefined ? blockNumber : parseInt(block, 10);
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
 
-  const watcher = new Watcher();
+  const watcher = new APIWatcher();
   const fromRange = from ? from : 0;
   const toRange = fromRange + 10;
 

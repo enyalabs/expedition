@@ -50,4 +50,6 @@ export default {
   "Back": "Back",
   "Ethereum RPC": "Ethereum RPC",
   "Service Runner RPC": "Service Runner RPC",
+  "Estimated Time To Finalize": "Estimated Time To Finalize",
+  "Fast Relay": "Fast Relay"
 };

@@ -9,3 +9,4 @@ dist
 services
 yarn.lock
 package-lock.json
+.env

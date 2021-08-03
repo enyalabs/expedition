@@ -11,10 +11,11 @@ const unit = require("ethjs-unit"); //tslint:disable-line
 export interface ITxViewProps {
   tx: any;
   receipt: any | null;
+  crossDomainMessage: any | null;
 }
 
 function TxView(props: ITxViewProps) {
-  const { tx, receipt } = props;
+  const { tx, receipt, crossDomainMessage } = props;
   const { t } = useTranslation();
   const history = useHistory();
   if (!tx) {
@@ -29,6 +30,96 @@ function TxView(props: ITxViewProps) {
         }}
         style={{ position: "absolute", right: "10px", top: "75px" }}
       >View Raw</Button>
+      {crossDomainMessage.crossDomainMessage &&
+        <>
+          <Typography variant='h6'>{`L2 → L1 Transaction`}</Typography>
+          <Table>
+            <TableBody>
+              <TableRow>
+                  <TableCell>{`L2 ${t("Hash")}`}</TableCell>
+                  <TableCell>{tx.hash}</TableCell>
+                </TableRow>
+                {crossDomainMessage.crossDomainMessageFinalize === 1 &&
+                  <>
+                    <TableRow>
+                      <TableCell>{`L1 ${t("Hash")}`}</TableCell>
+                      <TableCell>
+                        <Link
+                          component={({ className, children }: { children: any, className: string }) => (
+                            <a className={className} href={`https://rinkeby.etherscan.io/tx/${crossDomainMessage.l1Hash}`} target="_blank" rel="noopener noreferrer">
+                              {children}
+                            </a>
+                          )}>
+                          {crossDomainMessage.l1Hash}
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>{`L1 ${t("Block")}`}</TableCell>
+                      <TableCell>{crossDomainMessage.l1BlockHash}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>{`L1 ${t("Block Number")}`}</TableCell>
+                      <TableCell>
+                        <Link
+                          component={({ className, children }: { children: any, className: string }) => (
+                            <a className={className} href={`https://rinkeby.etherscan.io/block/${crossDomainMessage.l1BlockNumber}`} target="_blank" rel="noopener noreferrer">
+                              {children}
+                            </a>
+                          )}>
+                          {crossDomainMessage.l1BlockNumber}
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>{`L1 ${t("From")}`}</TableCell>
+                      <TableCell>
+                        <Link
+                          component={({ className, children }: { children: any, className: string }) => (
+                            <a className={className} href={`https://rinkeby.etherscan.io/address/${crossDomainMessage.l1From}`} target="_blank" rel="noopener noreferrer">
+                              {children}
+                            </a>
+                          )}>
+                          {crossDomainMessage.l1From}
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>{`L1 ${t("To")}`}</TableCell>
+                      <TableCell>
+                        <Link
+                          component={({ className, children }: { children: any, className: string }) => (
+                            <a className={className} href={`https://rinkeby.etherscan.io/address/${crossDomainMessage.l1To}`} target="_blank" rel="noopener noreferrer">
+                              {children}
+                            </a>
+                          )}>
+                          {crossDomainMessage.l1To}
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  </>
+                }
+                {crossDomainMessage.crossDomainMessageFinalize === 0 &&
+                  <>
+                    <TableRow>
+                      <TableCell>{t('Estimated Time To Finalize')}</TableCell>
+                      <TableCell>
+                        {new Date(crossDomainMessage.crossDomainMessageEstimateFinalizedTime * 1000).toLocaleString()}
+                      </TableCell>
+                    </TableRow>
+                  </>
+                }
+                <TableRow>
+                  <TableCell>{t('Fast Relay')}</TableCell>
+                  <TableCell>
+                    {crossDomainMessage.fastRelay ? 'True' : 'False'}
+                  </TableCell>
+                </TableRow>
+            </TableBody>
+          </Table>
+          <br />
+        </>
+      }
       <Typography variant="h6">Transaction</Typography>
       <Table>
         <TableBody>

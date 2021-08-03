@@ -1,5 +1,5 @@
 
-const VERSION = "1.0.1";
+const VERSION = "1.1.0";
 const SERVICE_API_URL = "https://api-service.rinkeby.omgx.network/";
 
 export const checkVersion = () => {

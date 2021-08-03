@@ -1,6 +1,6 @@
 import { orderBy } from "lodash";
 
-class Watcher {
+class APIWatcher {
   watcherURL: string;
 
   constructor() {
@@ -19,6 +19,19 @@ class Watcher {
       return []
     })
   }
+
+  async getCrossDomainMessage(hash: any) {
+    return fetch(this.watcherURL + 'get.crossdomainmessage', {
+      method: 'POST',
+      body: JSON.stringify({ hash }),
+    }).then(res => {
+      if (res.status === 201) return res.json();
+      return ""
+    }).then(response => {
+      if (response) return response;
+      return {}
+    })
+  }
 }
 
-export default Watcher;
+export default APIWatcher;

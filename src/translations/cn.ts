@@ -57,4 +57,6 @@ export default {
   "Back": "返回",
   "Ethereum RPC": "Ethereum RPC",
   "Service Runner RPC": "Service Runner RPC",
+  "Estimated Time To Finalize": "预计完结时间",
+  "Fast Relay": "快速传递"
 };
