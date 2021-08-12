@@ -3,13 +3,12 @@ import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
-import { hexToNumber } from "@etclabscore/eserialize";
 
 function TxListItem({ tx, showblockNumber }: { tx: any, showblockNumber?: boolean }) {
-  
+
   return (
     <TableRow>
-      {showblockNumber && <TableCell>{hexToNumber(tx.blockNumber)}</TableCell>}
+      {showblockNumber && <TableCell>{tx.blockNumber}</TableCell>}
 
       <TableCell>
         <Link

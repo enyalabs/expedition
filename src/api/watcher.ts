@@ -1,10 +1,10 @@
 import { orderBy } from "lodash";
 
 class APIWatcher {
-  watcherURL: string;
+  watcherURL: string | undefined;
 
   constructor() {
-    this.watcherURL = "https://api-watcher.rinkeby.omgx.network/";
+    this.watcherURL = process.env.REACT_APP_WATCHER_API_URL;
   }
 
   async getTransaction(address: string, fromRange: number, toRange: number) {

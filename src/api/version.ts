@@ -1,6 +1,6 @@
 
-const VERSION = "1.1.1";
-const SERVICE_API_URL = "https://api-service.rinkeby.omgx.network/";
+const VERSION = process.env.REACT_APP_VERSION;
+const SERVICE_API_URL = process.env.REACT_APP_SERVICE_API_URL;
 
 export const checkVersion = () => {
   fetch(SERVICE_API_URL + 'get.version', {

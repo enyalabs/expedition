@@ -10,6 +10,7 @@ import BlockListContainer from "./BlockList";
 import { hexToNumber } from "@etclabscore/eserialize";
 import { useTranslation } from "react-i18next";
 import { Block as IBlock, IsSyncingResult as ISyncing} from "@etclabscore/ethereum-json-rpc";
+import * as ethers from "ethers";
 
 const useState = React.useState;
 
@@ -30,8 +31,11 @@ export default (props: any) => {
   const [gasPrice, setGasPrice] = useState<string>();
   const [syncing, setSyncing] = useState<ISyncing>();
   const [peerCount, setPeerCount] = useState<string>();
+  const [rollupL1GasFee, setRollupL1GasFee] = useState<string>();
+  const [rollupL2GasFee, setRollupL2GasFee] = useState<string>();
 
   const { t } = useTranslation();
+  const L2Web3 = new ethers.providers.JsonRpcProvider(process.env.REACT_APP_NETWORK);
 
   React.useEffect(() => {
     if (!erpc) { return; }
@@ -39,7 +43,12 @@ export default (props: any) => {
       if (cid === null) { return; }
       setChainId(cid);
     });
-  }, [erpc]);
+    L2Web3.send('rollup_gasPrices', []).then(rollupGasPrice => {
+      if (rollupGasPrice === null) { return; }
+      setRollupL1GasFee(ethers.BigNumber.from(rollupGasPrice.l1GasPrice).toString())
+      setRollupL2GasFee(ethers.BigNumber.from(rollupGasPrice.l2GasPrice).toString())
+    })
+  }, [erpc, L2Web3]);
 
   React.useEffect(() => {
     if (!erpc || blockNumber === undefined) { return; }
@@ -77,6 +86,15 @@ export default (props: any) => {
     erpc.eth_gasPrice().then(setGasPrice);
   }, [erpc]);
 
+  useInterval(() => {
+    if (!erpc) { return; }
+    L2Web3.send('rollup_gasPrices', []).then(rollupGasPrice => {
+      if (rollupGasPrice === null) { return; }
+      setRollupL1GasFee(ethers.BigNumber.from(rollupGasPrice.l1GasPrice).toString())
+      setRollupL2GasFee(ethers.BigNumber.from(rollupGasPrice.l2GasPrice).toString())
+    })
+  }, 60000, true);
+
   if (blocks === undefined || chainId === undefined || gasPrice === undefined || peerCount === undefined) {
     return <LoadingView />;
 
@@ -111,20 +129,16 @@ export default (props: any) => {
               <Typography variant="h4">{weiToGwei(hexToNumber(gasPrice))} Gwei</Typography>
             </ChartCard>
           </Grid>
-          {/* <Grid key="hRate" item>
-            <ChartCard title={t("Network Hash Rate")}>
-              {block &&
-                <HashRate block={block} blockTime={config.blockTime}>
-                  {(hashRate: any) => <Typography variant="h4">{hashRate} GH/s</Typography>}
-                </HashRate>
-              }
+          <Grid key="rollupL1GasPrice" item>
+            <ChartCard title={"Rollup L1 Gas Price"}>
+             <Typography variant="h4">{weiToGwei(rollupL1GasFee)} Gwei</Typography>
             </ChartCard>
-          </Grid> */}
-          {/* <Grid key="peers" item>
-            <ChartCard title={t("Peers")}>
-              <Typography variant="h4">{hexToNumber(peerCount)}</Typography>
+          </Grid>
+          <Grid key="rollupL2GasPrice" item>
+            <ChartCard title={"Rollup L2 Gas Price"}>
+             <Typography variant="h4">{weiToGwei(rollupL2GasFee)} Gwei</Typography>
             </ChartCard>
-          </Grid> */}
+          </Grid>
         </Grid>
       </Grid>
       <Grid container justify="flex-end">

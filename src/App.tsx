@@ -95,7 +95,7 @@ function App(props: any) {
     const { name } = selectedChain as Chain;
 
     if (name !== query.network) {
-      setQuery({ network: name });
+      // setQuery({ network: name });
       // history.push({
       //   pathname: history.location.pathname,
       //   search: `?network=${name}`,

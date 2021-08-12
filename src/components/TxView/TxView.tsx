@@ -30,7 +30,7 @@ function TxView(props: ITxViewProps) {
         }}
         style={{ position: "absolute", right: "10px", top: "75px" }}
       >View Raw</Button>
-      {crossDomainMessage.crossDomainMessage &&
+      {crossDomainMessage.crossDomainMessage ?
         <>
           <Typography variant='h6'>{`L2 → L1 Transaction`}</Typography>
           <Table>
@@ -118,7 +118,7 @@ function TxView(props: ITxViewProps) {
             </TableBody>
           </Table>
           <br />
-        </>
+        </>:<></>
       }
       <Typography variant="h6">Transaction</Typography>
       <Table>
