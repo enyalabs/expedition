@@ -8,6 +8,7 @@ declare var process : {
   env: {
     REACT_APP_NETWORK_1: string
     REACT_APP_NETWORK_2: string
+    REACT_APP_NETWORK_3: string
   }
 }
 
@@ -22,6 +23,11 @@ export default function() {
       name: "Rinkeby",
       network: "OMGX Rinkeby",
       rpc: [process.env.REACT_APP_NETWORK_2],
+    },
+    {
+      name: "Rinkeby Test",
+      network: "OMGX Rinkeby Test",
+      rpc: [process.env.REACT_APP_NETWORK_3],
     }
   ]);
   return [chains, setChains];
