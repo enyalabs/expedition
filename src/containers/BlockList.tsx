@@ -21,13 +21,19 @@ export default function BlockListContainer(props: IProps) {
   const { from, to, style } = props;
   const [erpc] = useEthRPCStore();
   const [blocks, setBlocks] = React.useState<IBlock[]>();
+  const [loading, setLoading]= React.useState<boolean>(false);
+
   React.useEffect(() => {
     if (!erpc) { return; }
-    getBlocks(from, to, erpc).then(setBlocks);
+    setLoading(true);
+    getBlocks(from, to, erpc).then((data) => {
+      setBlocks(data);
+      setLoading(false);
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [from, to]);
 
-  if (!blocks) {
+  if (!blocks || loading) {
     return <LoadingView />;
   }
   return (

@@ -1,4 +1,4 @@
-import { AppBar, CssBaseline, Toolbar, IconButton, Grid, InputBase, Tooltip } from "@material-ui/core";
+import { AppBar, CssBaseline, Toolbar, IconButton, Grid, InputBase, Tooltip, CircularProgress } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import React, { Dispatch, ChangeEvent, KeyboardEvent, useState, useEffect } from "react";
 import { Router, Route, Switch } from "react-router-dom";
@@ -20,7 +20,7 @@ import ETHJSONSpec from "@etclabscore/ethereum-json-rpc-specification/openrpc.js
 import { useTranslation } from "react-i18next";
 import LanguageMenu from "./containers/LanguageMenu";
 import { createBrowserHistory } from "history";
-// import ChainDropdown from "./components/ChainDropdown/ChainDropdown";
+import ChainDropdown from "./components/ChainDropdown/ChainDropdown";
 import { StringParam, QueryParamProvider, useQueryParams } from "use-query-params";
 import { createPreserveQueryHistory } from "./helpers/createPreserveHistory";
 import BlockRawContainer from "./containers/BlockRawContainer";
@@ -30,6 +30,7 @@ import { IChain as Chain } from "./models/chain";
 import useChainListStore from "./stores/useChainListStore";
 import useEthRPCStore from "./stores/useEthRPCStore";
 import { checkVersion } from "./api/version";
+import { NetworkWifi } from "@material-ui/icons";
 
 const history = createPreserveQueryHistory(createBrowserHistory, ["network", "rpcUrl"])();
 
@@ -95,11 +96,11 @@ function App(props: any) {
     const { name } = selectedChain as Chain;
 
     if (name !== query.network) {
-      // setQuery({ network: name });
-      // history.push({
-      //   pathname: history.location.pathname,
-      //   search: `?network=${name}`,
-      // });
+      setQuery({ network: name });
+      history.push({
+        pathname: history.location.pathname,
+        search: `?network=${name}`,
+      });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedChain, setQuery]);
@@ -218,6 +219,24 @@ function App(props: any) {
                 />
               </Grid>
               <Grid item>
+                {selectedChain ? (
+                  <ChainDropdown
+                    chains={chains}
+                    onChange={setSelectedChain}
+                    selected={selectedChain}
+                  />
+                ) : (
+                  <>
+                    {query && query.rpcUrl && (
+                      <Tooltip title={query.rpcUrl}>
+                        <IconButton >
+                          <NetworkWifi />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                    {!query.rpcUrl && <CircularProgress />}
+                  </>
+                )}
                 <LanguageMenu />
                 {/* <Tooltip title={t("JSON-RPC API Documentation") as string}>
                   <IconButton

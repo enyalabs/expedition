@@ -4,7 +4,9 @@ class APIWatcher {
   watcherURL: string | undefined;
 
   constructor() {
-    this.watcherURL = process.env.REACT_APP_WATCHER_API_URL;
+    this.watcherURL = window.location.href.includes("Mainnet") ? 
+      process.env.REACT_APP_WATCHER_API_URL_1 : 
+      process.env.REACT_APP_WATCHER_API_URL_2;
   }
 
   async getTransaction(address: string, fromRange: number, toRange: number) {
