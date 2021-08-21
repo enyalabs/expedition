@@ -25,7 +25,7 @@ import { StringParam, QueryParamProvider, useQueryParams } from "use-query-param
 import { createPreserveQueryHistory } from "./helpers/createPreserveHistory";
 import BlockRawContainer from "./containers/BlockRawContainer";
 import TransactionRawContainer from "./containers/TransactionRawContainer";
-import omgxLogo from "./omgx.png";
+import bobaLogo from "./logo-boba.svg";
 import { IChain as Chain } from "./models/chain";
 import useChainListStore from "./stores/useChainListStore";
 import useEthRPCStore from "./stores/useEthRPCStore";
@@ -185,9 +185,9 @@ function App(props: any) {
               <Grid item style={{ marginTop: "8px" }}>
                 <img
                   alt="omgx-logo"
-                  height="30"
+                  height="50"
                   style={{ marginRight: "10px", cursor: 'pointer' }}
-                  src={omgxLogo}
+                  src={bobaLogo}
                   onClick={()=>history.push('/')}
                 />
               </Grid>
