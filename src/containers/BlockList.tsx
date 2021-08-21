@@ -21,9 +21,12 @@ export default function BlockListContainer(props: IProps) {
   const { from, to, style } = props;
   const [erpc] = useEthRPCStore();
   const [blocks, setBlocks] = React.useState<IBlock[]>();
+
   React.useEffect(() => {
     if (!erpc) { return; }
-    getBlocks(from, to, erpc).then(setBlocks);
+    getBlocks(from, to, erpc).then((data) => {
+      setBlocks(data);
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [from, to]);
 

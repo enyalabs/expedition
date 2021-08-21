@@ -35,7 +35,10 @@ export default (props: any) => {
   const [rollupL2GasFee, setRollupL2GasFee] = useState<string>();
 
   const { t } = useTranslation();
-  const L2Web3 = new ethers.providers.JsonRpcProvider(process.env.REACT_APP_NETWORK);
+  const URL = window.location.href.includes("Mainnet") ? 
+    process.env.REACT_APP_NETWORK_1 : 
+    process.env.REACT_APP_NETWORK_2;
+  const L2Web3 = new ethers.providers.JsonRpcProvider(URL);
 
   React.useEffect(() => {
     if (!erpc) { return; }
