@@ -10,6 +10,7 @@ import {
 import { Grid, IconButton } from "@material-ui/core";
 import { ArrowForwardIos, ArrowBackIos } from "@material-ui/icons";
 import APIWatcher from "../api/watcher";
+import useDarkMode from "use-dark-mode";
 import "./css/Transaction.css";
 
 const pageInterval = 20;
@@ -40,6 +41,7 @@ export default function TransactionContainer(props: any) {
   const [page, setPage] = React.useState<number>(0);
   const [transactions, setTransactions] = React.useState<ITransactionReceipt>();
   const [disableNext, setDisableNext] = React.useState<boolean>(false);
+  const darkMode = useDarkMode();
   const apiWatcher = new APIWatcher();
 
   React.useEffect(() => {
@@ -87,8 +89,8 @@ export default function TransactionContainer(props: any) {
 
   if (!hash) {
     return (
-      <div className="transaction">
-        <div className="transactionContainer">
+      <div className={!darkMode.value ? "transaction": "transactionDark"}>
+        <div className={!darkMode.value ? "transactionContainer": "transactionContainerDark"}>
           <Grid container justify="flex-end">
             <IconButton onClick={()=>handlePrevPage()} disabled={page === 0}>
               <ArrowBackIos />
@@ -108,8 +110,8 @@ export default function TransactionContainer(props: any) {
   }
 
   return (
-    <div className="transaction">
-      <div className="transactionContainer">
+    <div className={!darkMode.value ? "transaction": "transactionDark"}>
+      <div className={!darkMode.value ? "transactionContainer": "transactionContainerDark"}>
         <TxView tx={transaction} receipt={receipt} crossDomainMessage={crossDomainMessage} />
       </div>
     </div>

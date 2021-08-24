@@ -11,6 +11,7 @@ import { hexToNumber } from "@etclabscore/eserialize";
 import { useTranslation } from "react-i18next";
 import { Block as IBlock, IsSyncingResult as ISyncing} from "@etclabscore/ethereum-json-rpc";
 import * as ethers from "ethers";
+import useDarkMode from "use-dark-mode";
 import "./css/Dashboard.css";
 
 const useState = React.useState;
@@ -34,6 +35,7 @@ export default (props: any) => {
   const [peerCount, setPeerCount] = useState<string>();
   const [rollupL1GasFee, setRollupL1GasFee] = useState<string>();
   const [rollupL2GasFee, setRollupL2GasFee] = useState<string>();
+  const darkMode = useDarkMode();
 
   const { t } = useTranslation();
   const URL = window.location.href.includes("Mainnet") ? 
@@ -102,7 +104,7 @@ export default (props: any) => {
   if (blocks === undefined || chainId === undefined || gasPrice === undefined || peerCount === undefined) {
     return <LoadingView />;
   }
-  
+
   return (
     <div>
       <div className="dashboardTopRow">

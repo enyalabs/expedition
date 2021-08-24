@@ -4,9 +4,27 @@
   padding-bottom: 80px;
 }
 
+.blockListDark {
+  background-color: #212121;
+  padding-top: 50px;
+  padding-bottom: 80px;
+}
+
 .blockListContainer {
   border-width: 1px;
   background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #e7eaf3;
+  border-radius: .5rem;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+.blockListContainerDark {
+  border-width: 1px;
+  background-color: #212121;
   background-clip: border-box;
   border: 1px solid #e7eaf3;
   border-radius: .5rem;

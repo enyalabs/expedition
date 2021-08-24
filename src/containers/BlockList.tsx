@@ -6,6 +6,7 @@ import LoadingView from "../components/LoadingView/LoadingView";
 import getBlocks from "../helpers";
 import { ArrowForwardIos, ArrowBackIos } from "@material-ui/icons";
 import { Block as IBlock } from "@etclabscore/ethereum-json-rpc";
+import useDarkMode from "use-dark-mode";
 import "./css/BlockList.css";
 
 interface IProps {
@@ -22,6 +23,7 @@ export default function BlockListContainer(props: IProps) {
   const { from, to, style } = props;
   const [erpc] = useEthRPCStore();
   const [blocks, setBlocks] = React.useState<IBlock[]>();
+  const darkMode = useDarkMode();
 
   React.useEffect(() => {
     if (!erpc) { return; }
@@ -34,9 +36,10 @@ export default function BlockListContainer(props: IProps) {
   if (!blocks) {
     return <LoadingView />;
   }
+
   return (
-    <div className="blockList">
-      <div className="blockListContainer" style={style}>
+    <div className={!darkMode.value ? "blockList": "blockListDark"}>
+      <div className={!darkMode.value ? "blockListContainer": "blockListContainerDark" } style={style}>
         <Grid container justify="flex-end">
           <IconButton onClick={props.onPrev} disabled={props.disablePrev}>
             <ArrowBackIos />

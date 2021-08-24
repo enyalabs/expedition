@@ -7,6 +7,7 @@ import { hexToNumber } from "@etclabscore/eserialize";
 import AddressTransactions from "../components/AddressTransactions";
 import { History } from "history";
 import { Transaction } from "@etclabscore/ethereum-json-rpc";
+import useDarkMode from "use-dark-mode";
 import APIWatcher from "../api/watcher";
 import "./css/Address.css";
 
@@ -32,6 +33,7 @@ const Address: React.FC<IProps> = ({ match, history }) => {
   const [code, setCode] = React.useState<string>();
   const blockNum = block === undefined ? blockNumber : parseInt(block, 10);
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
+  const darkMode = useDarkMode();
 
   const watcher = new APIWatcher();
   const fromRange = Number(block) ? Number(block) : 0;
@@ -84,8 +86,8 @@ const Address: React.FC<IProps> = ({ match, history }) => {
   }
 
   return (
-    <div className="address">
-      <div className="addressContainer">
+    <div className={!darkMode.value ? "address": "addressDark"}>
+      <div className={!darkMode.value ? "addressContainer": "addressContainerDark"}>
         <AddressView
           address={address}
           txCount={transactionCount ? hexToNumber(transactionCount) : 0}

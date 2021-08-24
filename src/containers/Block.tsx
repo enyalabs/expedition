@@ -3,12 +3,14 @@ import useEthRPCStore from "../stores/useEthRPCStore";
 import * as React from "react";
 import BlockView from "../components/BlockView";
 import { Block as IBlock } from "@etclabscore/ethereum-json-rpc";
+import useDarkMode from "use-dark-mode";
 import "./css/Block.css"
 
 export default function Block(props: any) {
   const { match: { params: { hash } } } = props;
   const [block, setBlock] = React.useState<IBlock>();
   const [erpc] = useEthRPCStore();
+  const darkMode = useDarkMode();
 
   React.useEffect(() => {
     if (erpc === undefined) { return; }
@@ -20,8 +22,8 @@ export default function Block(props: any) {
 
   if (!block) { return (<LoadingView />); }
   return (
-    <div className="block">
-      <div className="blockContainer">
+    <div className={!darkMode.value ? "block": "blockDark"}>
+      <div className={!darkMode.value ? "blockContainer": "blockContainerDark"}>
         <BlockView block={block} />
       </div>
     </div>
