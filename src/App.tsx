@@ -83,7 +83,16 @@ function App(props: any) {
       const foundChain = chains.find((chain: Chain) => chain.name === query.network);
       setSelectedChain(foundChain);
     } else {
-      setSelectedChain(chains[0]);
+      if (localStorage.getItem("selectedChain")) {
+        const filterChain:any = chains.filter( i => i.name === localStorage.getItem("selectedChain"))
+        if (filterChain.length) {
+          setSelectedChain(filterChain[0]);
+        } else {
+          setSelectedChain(chains[0]);
+        }
+      } else {
+        setSelectedChain(chains[0]);
+      }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chains, query.network]);
@@ -179,7 +188,7 @@ function App(props: any) {
   return (
     <Router history={history}>
       <ThemeProvider theme={theme}>
-        <AppBar position="sticky" color="default" elevation={0}>
+        <AppBar color="default" elevation={0}>
           <Toolbar>
             <Grid justify="space-between" alignItems="center" alignContent="center" container>
               <Grid item style={{ marginTop: "8px" }}>
@@ -222,7 +231,11 @@ function App(props: any) {
                 {selectedChain ? (
                   <ChainDropdown
                     chains={chains}
-                    onChange={setSelectedChain}
+                    onChange={(v) => {
+                      setSelectedChain(v); 
+                      history.push("/"); 
+                      localStorage.setItem("selectedChain", v.name)
+                    }}
                     selected={selectedChain}
                   />
                 ) : (
@@ -238,22 +251,6 @@ function App(props: any) {
                   </>
                 )}
                 <LanguageMenu />
-                {/* <Tooltip title={t("JSON-RPC API Documentation") as string}>
-                  <IconButton
-                    onClick={() =>
-                      window.open("https://playground.open-rpc.org/?schemaUrl=https://raw.githubusercontent.com/etclabscore/ethereum-json-rpc-specification/master/openrpc.json") //tslint:disable-line
-                    }>
-                    <NotesIcon />
-                  </IconButton>
-                </Tooltip> */}
-                {/* <Tooltip title={t("Expedition Github") as string}>
-                  <IconButton
-                    onClick={() =>
-                      window.open("https://github.com/xops/expedition")
-                    }>
-                    <CodeIcon />
-                  </IconButton>
-                </Tooltip> */}
                 <Tooltip title={t("Toggle Dark Mode") as string}>
                   <IconButton onClick={darkMode.toggle}>
                     {darkMode.value ? <Brightness3Icon /> : <WbSunnyIcon />}
@@ -263,7 +260,7 @@ function App(props: any) {
             </Grid>
           </Toolbar>
         </AppBar>
-        <div style={{ margin: "0px 25px 0px 25px" }}>
+        <div>
           <QueryParamProvider ReactRouterRoute={Route}>
             <CssBaseline />
             <Switch>
@@ -273,6 +270,7 @@ function App(props: any) {
               <Route path={"/blocks/:number"} component={NodeView} />
               <Route path={"/tx/:hash/raw"} component={TransactionRawContainer} />
               <Route path={"/tx/:hash"} component={Transaction} />
+              <Route path={"/tx"} component={Transaction} />
               <Route path={"/address/:address/:block"} component={Address} />
               <Route path={"/address/:address"} component={Address} />
             </Switch>

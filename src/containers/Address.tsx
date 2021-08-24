@@ -8,6 +8,7 @@ import AddressTransactions from "../components/AddressTransactions";
 import { History } from "history";
 import { Transaction } from "@etclabscore/ethereum-json-rpc";
 import APIWatcher from "../api/watcher";
+import "./css/Address.css";
 
 const unit = require("ethjs-unit"); //tslint:disable-line
 
@@ -23,7 +24,7 @@ interface IProps {
 }
 
 const Address: React.FC<IProps> = ({ match, history }) => {
-  const { address, from, block } = match.params;
+  const { address, block } = match.params;
   const [erpc] = useEthRPCStore();
   const [blockNumber] = useBlockNumber(erpc);
   const [transactionCount, setTransactionCount] = React.useState<string>();
@@ -33,7 +34,7 @@ const Address: React.FC<IProps> = ({ match, history }) => {
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
 
   const watcher = new APIWatcher();
-  const fromRange = from ? from : 0;
+  const fromRange = Number(block) ? Number(block) : 0;
   const toRange = fromRange + 10;
 
   React.useEffect(() => {
@@ -83,29 +84,31 @@ const Address: React.FC<IProps> = ({ match, history }) => {
   }
 
   return (
-    <>
-      <AddressView
-        address={address}
-        txCount={transactionCount ? hexToNumber(transactionCount) : 0}
-        balance={unit.fromWei(balance || 0, "ether")}
-        code={code}
-      />
-      <AddressTransactions
-        from={fromRange}
-        to={toRange}
-        transactions={transactions}
-        disablePrev={fromRange === 0}
-        disableNext={transactions.length < 10}
-        onPrev={() => {
-          const newQuery = Math.max(fromRange - 10, 0);
-          history.push(`/address/${address}/${newQuery}`);
-        }}
-        onNext={() => {
-          const newQuery = fromRange + 10;
-          history.push(`/address/${address}/${newQuery}`);
-        }}
-      />
-    </>
+    <div className="address">
+      <div className="addressContainer">
+        <AddressView
+          address={address}
+          txCount={transactionCount ? hexToNumber(transactionCount) : 0}
+          balance={unit.fromWei(balance || 0, "ether")}
+          code={code}
+        />
+        <AddressTransactions
+          from={fromRange}
+          to={toRange}
+          transactions={transactions}
+          disablePrev={fromRange === 0}
+          disableNext={transactions.length < 10}
+          onPrev={() => {
+            const newQuery = Math.max(fromRange - 10, 0);
+            history.push(`/address/${address}/${newQuery}`);
+          }}
+          onNext={() => {
+            const newQuery = fromRange + 10;
+            history.push(`/address/${address}/${newQuery}`);
+          }}
+        />
+      </div>
+    </div>
   );
 };
 

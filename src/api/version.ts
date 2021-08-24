@@ -3,7 +3,7 @@ const VERSION = process.env.REACT_APP_VERSION;
 const SERVICE_API_URL = process.env.REACT_APP_SERVICE_API_URL;
 
 export const checkVersion = () => {
-  fetch(SERVICE_API_URL + 'get.version', {
+  fetch(SERVICE_API_URL + 'get.blockexplorer.version', {
     method: "GET",
     headers: {
       'Accept': 'application/json',

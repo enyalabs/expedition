@@ -11,6 +11,7 @@ import { hexToNumber } from "@etclabscore/eserialize";
 import { useTranslation } from "react-i18next";
 import { Block as IBlock, IsSyncingResult as ISyncing} from "@etclabscore/ethereum-json-rpc";
 import * as ethers from "ethers";
+import "./css/Dashboard.css";
 
 const useState = React.useState;
 
@@ -100,58 +101,52 @@ export default (props: any) => {
 
   if (blocks === undefined || chainId === undefined || gasPrice === undefined || peerCount === undefined) {
     return <LoadingView />;
-
   }
+  
   return (
     <div>
-      <Grid container spacing={3} direction="column">
-        <Grid item container justify="space-between">
-          <Grid item key="blockHeight">
-            <ChartCard title={t("Block Height")}>
-              <Typography variant="h4">{blockNumber}</Typography>
-            </ChartCard>
-          </Grid>
-          <Grid key="chainId" item>
-            <ChartCard title={t("Chain ID")}>
-              <Typography variant="h4">{hexToNumber(chainId)}</Typography>
-            </ChartCard>
-          </Grid>
-          {syncing &&
-            <div key="syncing">
-              <ChartCard title={t("Syncing")}>
-                {typeof syncing === "object" && syncing.currentBlock &&
-                  <Typography variant="h4">
-                    {hexToNumber(syncing.currentBlock)} / {hexToNumber(syncing.highestBlock || "0x0")}
-                  </Typography>
-                }
+      <div className="dashboardTopRow">
+        <Grid className="dashboardTopContainer" container spacing={3} direction="column">
+          <Grid item container justify="space-between">
+            <Grid item key="blockHeight">
+              <ChartCard title={t("Block Height")}>
+                <Typography variant="h4">{blockNumber}</Typography>
               </ChartCard>
-            </div>
-          }
-          <Grid key="gasPrice" item>
-            <ChartCard title={t("Gas Price")}>
-              <Typography variant="h4">{weiToGwei(hexToNumber(gasPrice))} Gwei</Typography>
-            </ChartCard>
-          </Grid>
-          <Grid key="rollupL1GasPrice" item>
-            <ChartCard title={"Rollup L1 Gas Price"}>
-             <Typography variant="h4">{weiToGwei(rollupL1GasFee)} Gwei</Typography>
-            </ChartCard>
-          </Grid>
-          <Grid key="rollupL2GasPrice" item>
-            <ChartCard title={"Rollup L2 Gas Price"}>
-             <Typography variant="h4">{weiToGwei(rollupL2GasFee)} Gwei</Typography>
-            </ChartCard>
+            </Grid>
+            <Grid key="chainId" item>
+              <ChartCard title={t("Chain ID")}>
+                <Typography variant="h4">{hexToNumber(chainId)}</Typography>
+              </ChartCard>
+            </Grid>
+            {syncing &&
+              <div key="syncing">
+                <ChartCard title={t("Syncing")}>
+                  {typeof syncing === "object" && syncing.currentBlock &&
+                    <Typography variant="h4">
+                      {hexToNumber(syncing.currentBlock)} / {hexToNumber(syncing.highestBlock || "0x0")}
+                    </Typography>
+                  }
+                </ChartCard>
+              </div>
+            }
+            <Grid key="gasPrice" item>
+              <ChartCard title={t("Gas Price")}>
+                <Typography variant="h4">{weiToGwei(hexToNumber(gasPrice))} Gwei</Typography>
+              </ChartCard>
+            </Grid>
+            <Grid key="rollupL1GasPrice" item>
+              <ChartCard title={"Rollup L1 Gas Price"}>
+              <Typography variant="h4">{weiToGwei(rollupL1GasFee)} Gwei</Typography>
+              </ChartCard>
+            </Grid>
+            <Grid key="rollupL2GasPrice" item>
+              <ChartCard title={"Rollup L2 Gas Price"}>
+              <Typography variant="h4">{weiToGwei(rollupL2GasFee)} Gwei</Typography>
+              </ChartCard>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid container justify="flex-end">
-        {/* <Button
-          color="primary"
-          variant="outlined"
-          endIcon={<ArrowForwardIos />}
-          onClick={() => props.history.push("/stats/miners")}
-        >More Stats</Button> */}
-      </Grid>
+      </div>
       <br />
 
       <BlockListContainer

@@ -23,13 +23,13 @@ function TxView(props: ITxViewProps) {
   }
 
   return (
-    <div>
-      <Button
+    <div style={{overflow: 'hidden'}}>
+      {/* <Button
         onClick={() => {
           history.push(`/tx/${tx.hash}/raw`);
         }}
         style={{ position: "absolute", right: "10px", top: "75px" }}
-      >View Raw</Button>
+      >View Raw</Button> */}
       {crossDomainMessage.crossDomainMessage ?
         <>
           <Typography variant='h6'>{`L2 → L1 Transaction`}</Typography>

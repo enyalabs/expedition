@@ -29,12 +29,12 @@ function BlockView(props: any) {
 
   return (
     <div>
-      <Button
+      {/* <Button
         onClick={() => { history.push(`/block/${block.hash}/raw`); }}
         style={{ position: "absolute", right: "10px", top: "75px" }}
       >
         View Raw
-      </Button>
+      </Button> */}
       <Table>
         <TableBody>
           <TableRow>
@@ -140,7 +140,7 @@ function BlockView(props: any) {
         </TableBody>
       </Table>
 
-      <TxList transactions={transactions} />
+      <TxList transactions={transactions}/>
     </div>
   );
 }

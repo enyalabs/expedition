@@ -3,6 +3,7 @@ import useEthRPCStore from "../stores/useEthRPCStore";
 import * as React from "react";
 import BlockView from "../components/BlockView";
 import { Block as IBlock } from "@etclabscore/ethereum-json-rpc";
+import "./css/Block.css"
 
 export default function Block(props: any) {
   const { match: { params: { hash } } } = props;
@@ -18,5 +19,11 @@ export default function Block(props: any) {
   }, [hash, erpc]);
 
   if (!block) { return (<LoadingView />); }
-  return (<BlockView block={block} />);
+  return (
+    <div className="block">
+      <div className="blockContainer">
+        <BlockView block={block} />
+      </div>
+    </div>
+  );
 }

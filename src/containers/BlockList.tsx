@@ -6,6 +6,7 @@ import LoadingView from "../components/LoadingView/LoadingView";
 import getBlocks from "../helpers";
 import { ArrowForwardIos, ArrowBackIos } from "@material-ui/icons";
 import { Block as IBlock } from "@etclabscore/ethereum-json-rpc";
+import "./css/BlockList.css";
 
 interface IProps {
   from: number;
@@ -34,16 +35,18 @@ export default function BlockListContainer(props: IProps) {
     return <LoadingView />;
   }
   return (
-    <div style={style}>
-      <Grid container justify="flex-end">
-        <IconButton onClick={props.onPrev} disabled={props.disablePrev}>
-          <ArrowBackIos />
-        </IconButton>
-        <IconButton onClick={props.onNext} disabled={props.disableNext}>
-          <ArrowForwardIos />
-        </IconButton>
-      </Grid>
-      <BlockList blocks={blocks} />
+    <div className="blockList">
+      <div className="blockListContainer" style={style}>
+        <Grid container justify="flex-end">
+          <IconButton onClick={props.onPrev} disabled={props.disablePrev}>
+            <ArrowBackIos />
+          </IconButton>
+          <IconButton onClick={props.onNext} disabled={props.disableNext}>
+            <ArrowForwardIos />
+          </IconButton>
+        </Grid>
+        <BlockList blocks={blocks}/>
+      </div>
     </div>
   );
 }

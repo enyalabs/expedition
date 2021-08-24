@@ -22,7 +22,7 @@ function AddressView(props: IAddressViewProps) {
         <div>
           <div>{t("Code")}</div>
           <pre>
-            <code>{code}</code>
+            <code style={{wordBreak: 'break-all'}}>{code}</code>
           </pre>
         </div>
       </CardContent>
