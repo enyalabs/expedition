@@ -276,6 +276,11 @@ function App(props: any) {
             </Switch>
           </QueryParamProvider>
         </div>
+        {darkMode.value && <style>{`
+          a {
+            color: #3366FF !important;
+          }
+        `}</style>}
       </ThemeProvider >
     </Router >
   );

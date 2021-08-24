@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.22.10/libexec/bin/yarn.js add moment.js
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.22.10/libexec/bin/yarn.js
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/TeX/texbin:/usr/local/go/bin:/usr/local/aria2/bin:/opt/X11/bin:/Library/Apple/usr/bin
@@ -14,17 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/moment.js: Not found
-      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:66988:18)
-      at Request.self.callback (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:140749:22)
-      at Request.emit (events.js:315:20)
-      at Request.<anonymous> (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:141721:10)
-      at Request.emit (events.js:315:20)
-      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:141643:12)
-      at Object.onceWrapper (events.js:421:28)
-      at IncomingMessage.emit (events.js:327:22)
-      at endReadableNT (_stream_readable.js:1327:12)
-      at processTicksAndRejections (internal/process/task_queues.js:80:21)
+  Error: ENOENT: no such file or directory, lstat '/Users/chenboyuan/Documents/GitHub/expedition.nosync/node_modules/postcss-load-config'
 
 npm manifest: 
   {
@@ -73,7 +63,7 @@ npm manifest:
       "i18next": "^17.3.1",
       "i18next-browser-languagedetector": "^3.1.1",
       "lodash": "^4.17.20",
-      "moment": "^2.24.0",
+      "moment": "^2.29.1",
       "qs": "^6.5.2",
       "query-string": "^6.8.3",
       "raf": "^3.4.0",
@@ -4902,6 +4892,11 @@ Lockfile:
       source-map "^0.6.1"
       source-map-resolve "^0.5.2"
       urix "^0.1.0"
+  
+  cssbeautify@^0.3.1:
+    version "0.3.1"
+    resolved "https://registry.yarnpkg.com/cssbeautify/-/cssbeautify-0.3.1.tgz#12dd1f734035c2e6faca67dcbdcef74e42811397"
+    integrity sha1-Et0fc0A1wub6ymfcvc73TkKBE5c=
   
   cssdb@^4.4.0:
     version "4.4.0"
@@ -9936,7 +9931,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
     integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
   
-  moment@^2.24.0:
+  moment@^2.29.1:
     version "2.29.1"
     resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
     integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
@@ -12281,6 +12276,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
     integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
   
+  react-parm@^1.0.0:
+    version "1.1.1"
+    resolved "https://registry.yarnpkg.com/react-parm/-/react-parm-1.1.1.tgz#a88af214ff942aac517ec21a4aea8a57104512d3"
+    integrity sha512-fei1OHIwwYWTdAeiJSCz8VHCIIeZTI65fmtFRtoejwYMOQGgJcim0K1RTz69kTnvwviQI+a9vU3t0MZR52hSLQ==
+  
   react-router-dom@^5.1.2:
     version "5.2.0"
     resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-5.2.0.tgz#9e65a4d0c45e13289e66c7b17c7e175d0ea15662"
@@ -12369,6 +12369,15 @@ Lockfile:
       workbox-webpack-plugin "4.3.1"
     optionalDependencies:
       fsevents "2.1.2"
+  
+  react-style-tag@^2.0.4:
+    version "2.0.4"
+    resolved "https://registry.yarnpkg.com/react-style-tag/-/react-style-tag-2.0.4.tgz#f647859882ec3d50ced3c9143dd0e88bb33b7b3e"
+    integrity sha512-IPOb0ahaJS+5oH+F0LiOexlz/KhwPeyQYluP/a8UGxKVZ1WU/ZBeosSEcwO9IrstOZlUJN5Jrp0YyKxkYNq5og==
+    dependencies:
+      cssbeautify "^0.3.1"
+      react-parm "^1.0.0"
+      stylis "^3.5.0"
   
   react-transition-group@^4.4.0:
     version "4.4.1"
@@ -13931,6 +13940,11 @@ Lockfile:
       browserslist "^4.0.0"
       postcss "^7.0.0"
       postcss-selector-parser "^3.0.0"
+  
+  stylis@^3.5.0:
+    version "3.5.4"
+    resolved "https://registry.yarnpkg.com/stylis/-/stylis-3.5.4.tgz#f665f25f5e299cf3d64654ab949a57c768b73fbe"
+    integrity sha512-8/3pSmthWM7lsPBKv7NXkzn2Uc9W7NotcwGNpJaa3k7WMM1XDCA4MgT5k/8BIexd5ydZdboXtU90XH9Ec4Bv/Q==
   
   supports-color@^2.0.0:
     version "2.0.0"

@@ -39,7 +39,7 @@ export default function BlockListContainer(props: IProps) {
 
   return (
     <div className={!darkMode.value ? "blockList": "blockListDark"}>
-      <div className={!darkMode.value ? "blockListContainer": "blockListContainerDark" } style={style}>
+      <div className={!darkMode.value ? "blockListContainer": "blockListContainerDark"} style={style}>
         <Grid container justify="flex-end">
           <IconButton onClick={props.onPrev} disabled={props.disablePrev}>
             <ArrowBackIos />
