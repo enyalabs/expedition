@@ -12,12 +12,20 @@ const rightPaddingFix = {
 
 function BlockList({ blocks }: any) {
   const { t } = useTranslation();
+  
   if (!blocks) {
     return null;
   }
-  const sortedBlocks = blocks.sort((a: { number: number }, b: { number: number }) => {
-    return b.number - a.number;
-  });
+
+  let sortedBlocks = [];
+  try {
+    sortedBlocks = blocks.sort((a: { number: number }, b: { number: number }) => {
+      return b.number - a.number;
+    });
+  } catch {
+    sortedBlocks = blocks;
+  }
+
   return (
     <div style={{ width: "100%", overflowX: "auto", marginBottom: "20px" }}>
       <Table>
