@@ -89,8 +89,8 @@ export default function TransactionContainer(props: any) {
 
   if (!hash) {
     return (
-      <div className={!darkMode.value ? "transaction": "transactionDark"}>
-        <div className={!darkMode.value ? "transactionContainer": "transactionContainerDark"}>
+      <div className={`transaction ${darkMode.value && "dark"}`}>
+        <div className={`transactionContainer ${darkMode.value && "dark"}`}>
           <Grid container justify="flex-end">
             <IconButton onClick={()=>handlePrevPage()} disabled={page === 0}>
               <ArrowBackIos />
@@ -110,8 +110,8 @@ export default function TransactionContainer(props: any) {
   }
 
   return (
-    <div className={!darkMode.value ? "transaction": "transactionDark"}>
-      <div className={!darkMode.value ? "transactionContainer": "transactionContainerDark"}>
+    <div className={`transaction ${darkMode.value && "dark"}`}>
+      <div className={`transactionContainer ${darkMode.value && "dark"}`}>
         <TxView tx={transaction} receipt={receipt} crossDomainMessage={crossDomainMessage} />
       </div>
     </div>

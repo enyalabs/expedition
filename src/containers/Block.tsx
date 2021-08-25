@@ -22,8 +22,8 @@ export default function Block(props: any) {
 
   if (!block) { return (<LoadingView />); }
   return (
-    <div className={!darkMode.value ? "block": "blockDark"}>
-      <div className={!darkMode.value ? "blockContainer": "blockContainerDark"}>
+    <div className={`block ${darkMode.value && "dark"}`}>
+      <div className={`blockContainer ${darkMode.value && "dark"}`}>
         <BlockView block={block} />
       </div>
     </div>

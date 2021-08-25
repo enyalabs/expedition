@@ -86,8 +86,8 @@ const Address: React.FC<IProps> = ({ match, history }) => {
   }
 
   return (
-    <div className={!darkMode.value ? "address": "addressDark"}>
-      <div className={!darkMode.value ? "addressContainer": "addressContainerDark"}>
+    <div className={`address ${darkMode.value && "dark"}`}>
+      <div className={`addressContainer ${darkMode.value && "dark"}`}>
         <AddressView
           address={address}
           txCount={transactionCount ? hexToNumber(transactionCount) : 0}

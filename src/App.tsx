@@ -34,6 +34,15 @@ import { NetworkWifi } from "@material-ui/icons";
 
 const history = createPreserveQueryHistory(createBrowserHistory, ["network", "rpcUrl"])();
 
+const darkStyle = `
+  a {
+    color: #3366FF !important;
+  }
+  .dark {
+    background-color: #212121 !important;
+  }
+`
+
 function App(props: any) {
   const { t } = useTranslation();
   const darkMode = useDarkMode();
@@ -276,11 +285,7 @@ function App(props: any) {
             </Switch>
           </QueryParamProvider>
         </div>
-        {darkMode.value && <style>{`
-          a {
-            color: #3366FF !important;
-          }
-        `}</style>}
+        {darkMode.value && <style>{darkStyle}</style>}
       </ThemeProvider >
     </Router >
   );
